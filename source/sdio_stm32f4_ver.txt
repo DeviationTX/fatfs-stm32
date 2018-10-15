@@ -1,0 +1,24 @@
+2018.11.28 V23.00	Fixed ExtCSD value retrieval problem for MMCv4.x or above cards.
+
+2018.10.16 V22.00	Adopted FatFs0.13c.
+2017.12.26 V21.00	Added read S.M.A.R.T. subroutine(test use only).
+2017.03.30 V20.00	Add error check on reading ExtCSD for eMMC.
+2017.02.22 V19.00	Fixed Block Address detection on larger eMMC.
+2017.01.13 V18.00	Added MMC_CMD6_WAIT().
+2016.11.29 V17.00	Fixed ACMD41 Argument to detect UHS.
+2016.03.31 V16.00	Added MMCv5.x Devices Support.
+2016.02.28 V15.00	Added MMCv3.x Cards(MMC Native 1-bit Mode) Support.
+2016.01.30 V14.00	Added MMCv4.x Cards PreSupport.
+2015.12.18 V13.00	Added Read SCR registers for disk_ioctl().
+2015.12.02 V12.00	Fixed Read CSD/CID/OCR registers for disk_ioctl().
+2015.03.14 V11.00	Fixed data corruption on DMA(4-byte unaligned buffer).
+2015.02.14 V10.00	Optimized global structures to use CCRAM.
+2015.02.01	V9.00	Added Handling SD High Speed Mode description.
+2014.11.18	V8.00	Added SD High Speed Mode(optional).
+2014.03.17	V7.00	Improved FIFO-Polling mode(can Tx/RX Multiblock).
+2013.10.09	V6.00	Integrated with diskio_sdio.c.
+2013.07.06	V5.00	Fixed over 4GB R/W Problem.
+2012.10.05	V4.00	Fixed ACMD41 Argument for SDXC(Not UHS-1 mode).
+2012.09.22	V3.00	Updated Support grater than 32GB Cards.
+2012.06.01	V2.00	Adopted STM324xG-EVAL SD-Sample V1.0.2.
+2011.10.16	V1.00	Start Here.

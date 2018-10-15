@@ -2649,6 +2649,7 @@ static void get_fileinfo (
 {
 	UINT si, di;
 #if FF_USE_LFN
+	BYTE lcf;
 	WCHAR wc, hs;
 	FATFS *fs = dp->obj.fs;
 #else
@@ -2709,9 +2710,10 @@ static void get_fileinfo (
 		if (di == 0) {	/* If LFN and SFN both are invalid, this object is inaccesible */
 			fno->fname[di++] = '?';
 		} else {
-			for (si = di = 0; fno->altname[si]; si++, di++) {	/* Copy altname[] to fname[] with case information */
+			for (si = di = 0, lcf = NS_BODY; fno->altname[si]; si++, di++) {	/* Copy altname[] to fname[] with case information */
 				wc = (WCHAR)fno->altname[si];
-				if (IsUpper(wc) && (dp->dir[DIR_NTres] & ((si >= 9) ? NS_EXT : NS_BODY))) wc += 0x20;
+				if (wc == '.') lcf = NS_EXT;
+				if (IsUpper(wc) && (dp->dir[DIR_NTres] & lcf)) wc += 0x20;
 				fno->fname[di] = (TCHAR)wc;
 			}
 		}
@@ -5642,7 +5644,7 @@ FRESULT f_mkfs (
 		b_fat = b_vol + 32;										/* FAT start at offset 32 */
 		sz_fat = ((sz_vol / au + 2) * 4 + ss - 1) / ss;			/* Number of FAT sectors */
 		b_data = (b_fat + sz_fat + sz_blk - 1) & ~(sz_blk - 1);	/* Align data area to the erase block boundary */
-		if (b_data >= sz_vol / 2) LEAVE_MKFS(FR_MKFS_ABORTED);	/* Too small volume? */
+		if (b_data - b_vol >= sz_vol / 2) LEAVE_MKFS(FR_MKFS_ABORTED);	/* Too small volume? */
 		n_clst = (sz_vol - (b_data - b_vol)) / au;				/* Number of clusters */
 		if (n_clst <16) LEAVE_MKFS(FR_MKFS_ABORTED);			/* Too few clusters? */
 		if (n_clst > MAX_EXFAT) LEAVE_MKFS(FR_MKFS_ABORTED);	/* Too many clusters? */
